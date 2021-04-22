@@ -46,8 +46,7 @@ $$\mathbf{Y}=\mathbf{X}\mathbf{\beta}+\mathbf{\varepsilon}.$$
 
 The ordinary least square (OLS) estimate of $\mathbf{\beta}$ is 
 
-```math
-$$\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}$$. 
+<img src="https://latex.codecogs.com/gif.latex?\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}. t " />
 ```
 
 To illustrate, let us consider the "mtcars" example, and run this regression:
