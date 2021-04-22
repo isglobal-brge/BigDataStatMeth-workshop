@@ -2,7 +2,7 @@
 
 The tutorials can be found here:
 
-- [BigDataStatMeth to work on memory (`Matrix` and `DelayedArray`](https://rpubs.com/jrgonzalezISGlobal/BigDatStatMeth_memory)
+- [BigDataStatMeth to work on memory (`Matrix` and `DelayedArray`)](https://rpubs.com/jrgonzalezISGlobal/BigDatStatMeth_memory)
 - [BigDataStatMeth to work wiht HDF5 files](https://rpubs.com/jrgonzalezISGlobal/BigDatStatMeth_hdf5)
 
 In order to reproduce the vignette follow the instructions described in the next sections
