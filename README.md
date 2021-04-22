@@ -40,13 +40,13 @@ See the file
 
 ## Exercise
 
-Let us imaging we are interested fitting a linear model:  b
+Let us imaging we are interested fitting a linear model:  
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\mathbf{Y}=\mathbf{X}\mathbf{\beta}&plus;\mathbf{\varepsilon}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbf{Y}=\mathbf{X}\mathbf{\beta}&plus;\mathbf{\varepsilon}" title="\mathbf{Y}=\mathbf{X}\mathbf{\beta}+\mathbf{\varepsilon}" /></a>
 
-The ordinary least square (OLS) estimate of $\mathbf{\beta}$ is 
+The ordinary least square (OLS) estimate of <a href="https://www.codecogs.com/eqnedit.php?latex=\mathbf{\beta}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbf{\beta}" title="\mathbf{\beta}" /></a> is 
 
-$$\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}.$$ 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}" title="\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}" /></a>. 
 
 To illustrate, let us consider the "mtcars" example, and run this regression:
 
