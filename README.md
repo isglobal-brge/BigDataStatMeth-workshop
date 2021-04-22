@@ -36,7 +36,7 @@ install_github("isglobal-brge/BigDataStatMeth")
 
 ## Practical examples
 
-See the file 
+Download and execute [this file](https://github.com/isglobal-brge/BigDataStatMeth-workshop/blob/main/R/script_upna.R).
 
 ## Exercise
 
