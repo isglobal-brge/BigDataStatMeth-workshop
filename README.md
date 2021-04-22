@@ -42,13 +42,11 @@ See the file
 
 Let us imaging we are interested fitting a linear model:  b
 
-$$\mathbf{Y}=\mathbf{X}\mathbf{\beta}+\mathbf{\varepsilon}.$$  
+<a href="https://www.codecogs.com/eqnedit.php?latex=\mathbf{Y}=\mathbf{X}\mathbf{\beta}&plus;\mathbf{\varepsilon}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbf{Y}=\mathbf{X}\mathbf{\beta}&plus;\mathbf{\varepsilon}" title="\mathbf{Y}=\mathbf{X}\mathbf{\beta}+\mathbf{\varepsilon}" /></a>
 
 The ordinary least square (OLS) estimate of $\mathbf{\beta}$ is 
 
-<img src="https://latex.codecogs.com/gif.latex?\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}. t " />
-
-- <img src="https://latex.codecogs.com/gif.latex?s=\text { sensor reading }  " /> 
+$$\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}.$$ 
 
 To illustrate, let us consider the "mtcars" example, and run this regression:
 
