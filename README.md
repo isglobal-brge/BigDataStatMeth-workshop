@@ -58,7 +58,7 @@ lm(mpg ~ wt + cyl, data=mtcars)
 Remeber that
 
 ```
-Y <- mtcars$mpg
+Y <- matrix(mtcars$mpg)
 X <- model.matrix(~ wt + cyl, data=mtcars)
 ```
 
