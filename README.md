@@ -67,7 +67,7 @@ X <- model.matrix(~ wt + cyl, data=mtcars)
 - Use functions in `BigDataStatMeth` to estimate model parameters using OLS with on memory data.
 - Use functions in `BigDataStatMeth` to estimate model parameters using OLS with a HDF5 file.
 
-NOTE: use `bdpseudoinv ()` function instead of `bdInvCholesky ()` since the matrix is not positive definite
+NOTE: use `bdpseudoinv()` function instead of `bdInvCholesky()` since the matrix is not positive definite
 
 
 
