@@ -6,12 +6,17 @@ library(BigDataStatMeth)
 library(rhdf5)
 library(microbenchmark)
 
+
+if(!file.exists("c:/tmp"))
+  dir.create("c:/tmp")
+
 setwd("c:/tmp/")
 
 n <- 1e3  # Note: working on memory with 10^4 is highly time-consuming
 
 
-# Let us imagine we aim to compute A%*%W%*%t(A) with A and W matrices nxn 
+# Let us imagine we aim to compute A%*%W%*%t(A) 
+# with A and W matrices nxn 
 
 A <- matrix(runif(n^2), nrow = n)
 W <- matrix(runif(n^2), nrow = n)
@@ -24,9 +29,10 @@ W <- matrix(runif(n^2), nrow = n)
 ############################################
 
 
-AWtA <- tCrossprod_Weighted(A, W, paral = TRUE, block_size = 256, threads = 3)
+AWtA <- tCrossprod_Weighted(A, W, paral = TRUE, 
+                            block_size = 256, threads = 3)
 R <- A%*%W%*%t(A)
-all.equal(AWtA[[1]], R)
+all.equal(AWtA, R)
 
 
 res <- microbenchmark(R = A%*%W%*%t(A),
@@ -44,19 +50,16 @@ plot(res)
 
 
 
+#####################################################
+##
+## Option 2a: Generate the object and store as HDF5 
+##
+#####################################################
 
-## #########################################
-##    Option 2 a
-##         
-##       Generate data and store as HDF5
-##
-##  NOTE: maybe one matrix is not producing memory overflow but creating more matrices
-##        with the same size crashes the system
-##
 
 
 # Create hdf5 data file with A matrix
-Create_HDF5_matrix_file(object = A, 
+Create_hdf5_matrix_file(object = A, 
                         filename="BigMatrixCalc.hdf5", 
                         group = "INPUT", 
                         dataset = "A",
@@ -64,17 +67,12 @@ Create_HDF5_matrix_file(object = A,
 
 # output 0 is fine
 
-rm(A)
-gc() # to alleviate memory
-
 
 # Add W matrix dataset to previous file
-Add_HDF5_matrix(object = W, 
+Add_hdf5_matrix(object = W, 
                 filename = "BigMatrixCalc.hdf5", 
                 group = "INPUT", 
                 dataset = "W")
-rm(W)
-gc()
 
 # Let us see the info
 h5ls("BigMatrixCalc.hdf5")
@@ -83,13 +81,8 @@ h5ls("BigMatrixCalc.hdf5")
 # NOTE: in R data are view in transpose mode!!!!
 
 
-##             COMMON PROCEDURE
-##          
-##    Working with hdf5 data file
-##    
 
-
-# -- tCrossProduct -- 
+# Remember:  
 # 
 #       A %*% W %*% t(A)
 #       
@@ -104,24 +97,13 @@ blockmult_hdf5(filename = "BigMatrixCalc.hdf5",
 # Second part ( (A%*%W)%*%t(A) ) in parallel
 tCrossprod_hdf5(filename = "BigMatrixCalc.hdf5",
                 group = "OUTPUT", A = "A_x_W", 
-                groupB = "INPUT", B = "A", paral = TRUE, threads = 4 )
+                groupB = "INPUT", B = "A", 
+                paral = TRUE, threads = 4 )
 
 # name of the created object tCrossProd_A_x_WxA
 
 # Let us see the info
 h5ls("BigMatrixCalc.hdf5")
-
-
-#  -- CrossProduct --
-# 
-#       t(A) %*% W %*% A
-# 
-# 
-# # First part ( t(A)%*%B )
-# Crossprod_hdf5("BigMatrixtCrossProd.hdf5", "INPUT","A", "INPUT","W", outgroup = "INPUT",  paral = TRUE, threads = 2 )
-# 
-# # Second part ( (t(A)%*%B) %*% A )
-# blockmult_hdf5("BigMatrixtCrossProd.hdf5", "INPUT","CrossProd_AxW","A")
 
 
 # Examine hierarchy before open file
@@ -163,12 +145,10 @@ all.equal(tcrossprodR, tCrossProd)
 
 
 # Create matrix and store to text file.After that, import to an hdf5 data file
-A <- matrix(runif(n^2), nrow = n)
 write.table(A, file="matrixA.txt", row.names = FALSE, col.names = FALSE, sep="\t") # remove the rownames
-rm(A)
 
 # Create a new datafile and remove previous version if exists
-Import_text_to_HDF5(filename = "matrixA.txt", 
+Import_text_to_hdf5(filename = "matrixA.txt", 
                     outputfile = "BigMatrixtCrossProd.hdf5", 
                     outGroup = "INPUT", outDataset = "A", 
                     overwrite = TRUE)  # <---------
@@ -176,12 +156,10 @@ Import_text_to_HDF5(filename = "matrixA.txt",
 
 # W matrix
 
-W <- matrix(runif(n^2), nrow = n)
 write.table(W, file="matrixW.txt", row.names = FALSE, col.names = FALSE,  sep="\t") # remove the rownames
-rm(W)
 
 # Add to an existing hdf5 data file
-Import_text_to_HDF5(filename = "matrixW.txt", 
+Import_text_to_hdf5(filename = "matrixW.txt", 
                     outputfile = "BigMatrixtCrossProd.hdf5", 
                     outGroup = "INPUT", outDataset = "W", 
                     overwrite = FALSE) # <---------
@@ -199,3 +177,18 @@ tCrossprod_hdf5(filename = "BigMatrixtCrossProd.hdf5",
                 groupB = "INPUT", B = "A", paral = TRUE, threads = 3)
 
 h5ls("BigMatrixtCrossProd.hdf5")
+
+h5fdelay <- H5Fopen("BigMatrixtCrossProd.hdf5")
+
+# Show hdf5 hierarchy (groups)
+h5fdelay
+
+h5fdelay$INPUT$A[1:10,1:10]
+h5fdelay$INPUT$W
+
+# Get result
+tCrossProd_file <- h5fdelay$OUTPUT$tCrossProd_A_x_WxA
+
+# check
+tcrossprodR <- A%*%W%*%t(A)
+all.equal(tcrossprodR, tCrossProd_file)
