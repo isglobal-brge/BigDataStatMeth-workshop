@@ -46,7 +46,11 @@ Let us imaging we are interested fitting a linear model:
 
 The ordinary least square (OLS) estimate of <a href="https://www.codecogs.com/eqnedit.php?latex=\mathbf{\beta}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbf{\beta}" title="\mathbf{\beta}" /></a> is 
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}" title="\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}" /></a>. 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}=\mathbf{R}^{-1}\mathbf{Q}^T\mathbf{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}=\mathbf{R}^{-1}\mathbf{Q}^T\mathbf{y}" title="\widehat{\mathbf{\beta}}=[\mathbf{X}^T\mathbf{X}]^{-1}\mathbf{X}^T\mathbf{y}=\mathbf{R}^{-1}\mathbf{Q}^T\mathbf{y}" /></a>
+
+were <a href="https://www.codecogs.com/eqnedit.php?latex=\mathbf{X}=\mathbf{Q}\mathbf{R}," target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbf{X}=\mathbf{Q}\mathbf{R}," title="\mathbf{X}=\mathbf{Q}\mathbf{R}," /></a> is the QR decomposition of <a href="https://www.codecogs.com/eqnedit.php?latex=\mathbf{X}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\mathbf{X}" title="\mathbf{X}" /></a>
+
+
 
 To illustrate, let us consider the "mtcars" example, and run this regression:
 
